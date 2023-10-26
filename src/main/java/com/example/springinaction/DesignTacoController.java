@@ -56,10 +56,13 @@ public class DesignTacoController {
 
     @PostMapping
     public String processTaco(
-            Taco taco,
+            @Valid Taco taco, Errors errors,
             @ModelAttribute TacoOrder tacoOrder){
-
-
+        if (errors.hasErrors())
+        {
+            System.out.println(errors.getAllErrors().toString());
+            return "design";
+        }
         tacoOrder.addTaco(taco);
         log.info("Processing taco: {}", taco);
 

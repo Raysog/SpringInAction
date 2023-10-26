@@ -22,13 +22,13 @@ public class OrderController {
 
     @PostMapping
     public String processOrder(
-            TacoOrder tacoOrder,
+            @Valid TacoOrder tacoOrder, Errors errors,
             SessionStatus sessionStatus){
 
-//        if (errors.hasErrors()) {
-//            System.out.println("asdffasdfasdfasdf");
-//            return "orderForm";
-//        }
+        if (errors.hasErrors()) {
+            System.out.println(errors.getAllErrors().toString());
+            return "orderForm";
+        }
 
         log.info("Order submitted: {}", tacoOrder);
         sessionStatus.setComplete();
