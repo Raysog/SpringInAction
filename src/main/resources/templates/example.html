@@ -1,7 +1,8 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" th:href="@{/styles/main.css}" >
+
 </head>
 
 <body>
@@ -54,9 +55,20 @@
 	</div>
 </div>
 
+<div>
+	<input type="text" id="param" placeholder="Param"><br><br>
+	<button id="button">Send Request</button>
+
+	<div id="result"></div>
+</div>
+
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<script src="getQuestion.js"></script>
-<script src="script.js"></script>
+<script type="text/javascript" th:src="@{/js/getQuestion.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+<script>
+
+</script>
 </body>
 </html>
