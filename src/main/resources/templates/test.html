@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="style2.css">
+        <link rel="stylesheet" th:href="@{/styles/style2.css}">
     </head>
 
     <body>
 		<header>
 		  <div class="logo">
-			<img src="logo.png" alt="Правила русского языка">
+			<img th:src="@{/images/logo_result.png}" alt="Правила русского языка">
 		  </div>
 		  <nav>
 			<ul>
@@ -20,7 +20,7 @@
 			</ul>
 		  </nav>
 		</header>
-		<main>
+		<main class="container">
 			<div class="bookshelf">
 				<!-- Размещение изображения книжной полки -->
 			</div>
@@ -33,12 +33,10 @@
 
 		<footer>
 			<div class="social-icons">
-				<a href="#"><img src="facebook.png" alt="Facebook"></a>
-				<a href="#"><img src="twitter.png" alt="Twitter"></a>
-				<a href="#"><img src="instagram.png" alt="Instagram"></a>
+				<a href="#"><img class="contact_logo" th:src="@{/images/WhatsApp.png}" alt="WhatsApp"></a>
 			</div>
 			<div class="footer-info">
-				<p>&copy; 2021 Правила русского языка. Все права защищены.</p>
+				<p>&copy; 2023 Правила русского языка. Все права защищены.</p>
 				<p><a href="#">Политика конфиденциальности</a> | <a href="#">Условия использования</a></p>
 			</div>
 		</footer>

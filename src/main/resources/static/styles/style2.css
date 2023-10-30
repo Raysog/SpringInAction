@@ -18,6 +18,16 @@ header {
 .logo img {
   width: 400px;
 }
+.contact_logo {
+	width: 1%;
+	height: 1%;
+}
+
+.container{
+  margin:0px auto;
+  width: 1600px;
+  border:  1px solid #e3c596;
+}
 
 nav ul {
   list-style-type: none;
