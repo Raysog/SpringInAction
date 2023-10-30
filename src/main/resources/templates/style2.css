@@ -1,0 +1,81 @@
+body {
+background-color: #f8f8f8;
+color: #333;
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo img {
+  width: 400px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+nav li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+nav li a:hover {
+  color: #ff0000;
+}
+
+.main {
+width: 960px;
+margin: 0 auto;
+padding: 20px;
+}
+
+.bookshelf {
+/* задать изображение книжной полки */
+}
+
+h1, h2, h3 {
+font-family: "Times New Roman", serif;
+color: #003366;
+}
+
+footer {
+background-color: #003366;
+padding: 20px;
+color: #fff;
+text-align: center;
+}
+
+.social-icons a {
+margin-right: 10px;
+}
+
+.footer-info p {
+margin-bottom: 5px;
+}
+
+.footer-info a {
+color: #fff;
+text-decoration: none;
+}
+
+.footer-info a:hover {
+text-decoration: underline;
+}
