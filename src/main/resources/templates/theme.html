@@ -1,8 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="stylesheet" href="main.css" >
-
+	<link rel="stylesheet" th:href="@{/styles/main.css}" >
 </head>
 
 <body>
@@ -38,29 +37,23 @@
 		<div id="tab1" class="tab-content active">
 			<h3></h3>
 			<p>This is the content for tab 1.</p>
-		</div>	
-		
-		<div class="list">
-			<table class="list">
-				<th class="next_question"><button class="tab-link" data-tab="tab1">Следующий вопрос</button></th>
-				<th class="finish_test"><button class="tab-link" data-tab="tab2">Завершить</button></th>
-			<div class=""></div>
-			<div class=""></div>
-			</table>
 		</div>
-		
-		
-	<table class="list">
-		<th class="question_number"><div class="new_question">1</div></th>
-		<th class="question_number"><div class="new_question">2</div></th>
-		<th class=""><div class="answered question_number">3</div></th>
-	</table>
-		
+
+		<div>
+			<button class="tab-link next_question" data-tab="tab1">Следующий вопрос</button>
+			<button class="tab-link finish_test" data-tab="tab2">Завершить</button>
+		</div>
+
+	<div>
+		<table class="list">
+			<th class="question_number"><div class="new_question">1</div></th>
+			<th class="question_number"><div class="new_question">2</div></th>
+			<th class="question_number"><div class="answered question_number">3</div></th>
+			<th class="question_number"><div class="answered question_number">4</div></th>
+		</table>
 	</div>
-	
 
-
-
+	</div>
 
 </div>
 

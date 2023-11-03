@@ -2,7 +2,7 @@
 		width: 100%;
 		background: #D8E3AB;
 		height: 100px;
-		background: #D8E3AB url(logo.png) no-repeat 5% 50%;
+		background: #D8E3AB no-repeat 5% 50%;
 	}
 	
 	.title{
@@ -19,7 +19,7 @@
 	
 	.container{
 		margin:0px auto;
-		width: 1600px; 
+		width: 80%;
 		border:  1px solid;
 	}
 	
@@ -53,11 +53,11 @@
 	}
 
 	.list{
-        width: 1600px;
+        width: 100%;
 	}
 
 	.questions_number{
-        border:  100;
+        border:  10px;
 	}
 
     .answered{
@@ -69,11 +69,15 @@
     }
 	
 	.next_question{
-		align: left;
+		float: left;
+		width: 30%;
     }
 	
 	.finish_test{
-		align: right;
+		float: right;
+		width: 30%;
     }
 
-</style>
+	th{
+		border: 1px solid;
+	}
