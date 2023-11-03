@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ShowThemeController {
 
-    @GetMapping("/example")
+    @GetMapping("/theme")
     public String home(){
         System.out.println("ShowThemeController.java");
-        return "example";
+        return "theme";
     }
 }
