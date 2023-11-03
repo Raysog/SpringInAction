@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="stylesheet" th:href="@{/styles/main.css}" >
+	<link rel="stylesheet" href="main.css" >
 
 </head>
 
@@ -38,21 +38,30 @@
 		<div id="tab1" class="tab-content active">
 			<h3></h3>
 			<p>This is the content for tab 1.</p>
+		</div>	
+		
+		<div class="list">
+			<table class="list">
+				<th class="next_question"><button class="tab-link" data-tab="tab1">Следующий вопрос</button></th>
+				<th class="finish_test"><button class="tab-link" data-tab="tab2">Завершить</button></th>
+			<div class=""></div>
+			<div class=""></div>
+			</table>
 		</div>
-		<div id="tab2" class="tab-content">
-			<h3></h3>
-			<p>This is the content for tab 2.</p>
-		</div>
-		<div id="tab3" class="tab-content">
-			<h3></h3>
-			<p>This is the content for tab 3.</p>
-		</div>
-
-		<button class="tab-link" data-tab="tab1">Tab 1</button>
-		<button class="tab-link" data-tab="tab2">Tab 2</button>
-		<button class="tab-link" data-tab="tab3">Tab 3</button>
-
+		
+		
+	<table class="list">
+		<th class="question_number"><div class="new_question">1</div></th>
+		<th class="question_number"><div class="new_question">2</div></th>
+		<th class=""><div class="answered question_number">3</div></th>
+	</table>
+		
 	</div>
+	
+
+
+
+
 </div>
 
 <div>
