@@ -1,83 +1,91 @@
-	header{
-		width: 100%;
-		background: #D8E3AB;
-		height: 100px;
-		background: #D8E3AB no-repeat 5% 50%;
-	}
-	
-	.title{
-		font-size: 36px;
-		padding-top: 10px;
-		text-align: center;
-	}
-	.menu{
-		list-style: none;
-		position: absolute;
-		top: 10px;
-		right: 100px;
-	}
-	
-	.container{
-		margin:0px auto;
-		width: 80%;
-		border:  1px solid;
-	}
-	
-	.tab-content {
-	  display: none;
-	}
+body {
+background-color: #f8f8f8;
+color: #333;
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+}
 
-	.tab-content.active {
-	  display: block;
-	}
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
 
-    h2 {
-        color: #333;
-		visibility: hidden;
-    }
+.logo {
+  text-align: center;
+}
 
-    p {
-        line-height: 1.5;
-    }
-    
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-	
-	body {
-		margin: 0;
-		padding: 0;
-		font-size: 16px;
-		font-family: "PT Sans", sans-serif;
-	}
+.logo img {
+  width: 400px;
+}
+.contact_logo {
+	width: 1%;
+	height: 1%;
+}
 
-	.list{
-        width: 100%;
-	}
+.container{
+  margin:0px auto;
+  width: 1600px;
+  border:  1px solid #e3c596;
+}
 
-	.questions_number{
-        border:  10px;
-	}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 
-    .answered{
-        color: #006400;
-    }
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
 
-    .new_question{
-        color: #FFD700;
-    }
-	
-	.next_question{
-		float: left;
-		width: 30%;
-    }
-	
-	.finish_test{
-		float: right;
-		width: 30%;
-    }
+nav li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
 
-	th{
-		border: 1px solid;
-	}
+nav li a:hover {
+  color: #ff0000;
+}
+
+.main {
+width: 960px;
+margin: 0 auto;
+padding: 20px;
+}
+
+.bookshelf {
+/* задать изображение книжной полки */
+}
+
+h1, h2, h3 {
+font-family: "Times New Roman", serif;
+color: #003366;
+}
+
+footer {
+background-color: #003366;
+padding: 20px;
+color: #fff;
+text-align: center;
+}
+
+.social-icons a {
+margin-right: 10px;
+}
+
+.footer-info p {
+margin-bottom: 5px;
+}
+
+.footer-info a {
+color: #fff;
+text-decoration: none;
+}
+
+.footer-info a:hover {
+text-decoration: underline;
+}

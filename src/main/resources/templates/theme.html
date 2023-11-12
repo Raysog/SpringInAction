@@ -1,18 +1,25 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<link rel="stylesheet" th:href="@{/styles/main.css}" >
+	<link rel="stylesheet" th:href="@{/styles/main_theme.css}" >
 </head>
 
 <body>
 <div id = "wrap">
 	<header>
-		<div class = "title">Русский язык</div>
-		<ul class = "menu">
-			<li><a href = "#">Контакты</a></li>
-			<li><a href = "#">О нас</a></li>
-			<li><a href = "#">Услуги</a></li>
-		</ul>
+		<div class="logo">
+			<img th:src="@{/images/logo_result.png}" alt="Правила русского языка">
+		</div>
+		<nav>
+			<ul>
+				<li><a href="#">Главная</a></li>
+				<li><a href="#">Правила</a></li>
+				<li><a href="#">Упражнения</a></li>
+				<li><a href="#">Статьи</a></li>
+				<li><a href="#">О нас</a></li>
+				<li><a href="#">Контакты</a></li>
+			</ul>
+		</nav>
 	</header>
 </div>
 
