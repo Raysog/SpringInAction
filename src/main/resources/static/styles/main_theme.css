@@ -1,6 +1,6 @@
 	header {
 		background-color: #f2f2f2;
-		padding: 2000px;
+		padding: 1%
 	}
 
 	.logo {
@@ -8,7 +8,7 @@
 	}
 
 	.logo img {
-		width: 400px;
+		width: 20%;
 	}
 	.contact_logo {
 		width: 1%;

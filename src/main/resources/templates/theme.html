@@ -41,24 +41,37 @@
 
 <div class="container">
 	<div class="tabs">
+
+		<div th:each="task : ${taskList}">
+			<h1 th:text="${task.question}"></h1>
+<!--			<div class="ingredient-group" id="sauces">-->
+<!--				<h3>Designate your sauce:</h3>-->
+<!--				<div th:each="ingredient : ${sauce}">-->
+<!--					<input th:field="*{ingredients}" type="checkbox"-->
+<!--						   th:value="${ingredient.id}"/>-->
+<!--					<span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
+<!--				</div>-->
+<!--			</div>-->
+		</div>
+
 		<div id="tab1" class="tab-content active">
 			<h3></h3>
 			<p>This is the content for tab 1.</p>
 		</div>
 
 		<div>
+			<table class="list">
+				<th class="question_number"><div class="new_question">1</div></th>
+				<th class="question_number"><div class="new_question">2</div></th>
+				<th class="question_number"><div class="answered question_number">3</div></th>
+				<th class="question_number"><div class="answered question_number">4</div></th>
+			</table>
+		</div>
+
+		<div>
 			<button class="tab-link next_question" data-tab="tab1">Следующий вопрос</button>
 			<button class="tab-link finish_test" data-tab="tab2">Завершить</button>
 		</div>
-
-	<div>
-		<table class="list">
-			<th class="question_number"><div class="new_question">1</div></th>
-			<th class="question_number"><div class="new_question">2</div></th>
-			<th class="question_number"><div class="answered question_number">3</div></th>
-			<th class="question_number"><div class="answered question_number">4</div></th>
-		</table>
-	</div>
 
 	</div>
 

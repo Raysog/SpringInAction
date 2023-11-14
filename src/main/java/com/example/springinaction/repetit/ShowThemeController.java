@@ -1,8 +1,7 @@
 package com.example.springinaction;
 
-import com.example.springinaction.testTask.MultyAnswerTask;
-import com.example.springinaction.testTask.SingleAnswerTask;
-import com.example.springinaction.testTask.TestList;
+import com.example.springinaction.repetit.testTask.TestList;
+import com.example.springinaction.repetit.testTask.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.example.springinaction.repetit.testTask.Task.Type;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,41 +28,45 @@ public class ShowThemeController {
 
         TestList taskList = new TestList();
 
-        SingleAnswerTask singleAnswerTask = new SingleAnswerTask();
+        Task singleAnswerTask = new Task();
         singleAnswerTask.setQuestion("Свойства каких частей речи в себе соединило причастие?");
         List<String> answersList = new ArrayList<>();
         answersList.add("Глагола и имени существительного");
         answersList.add("Глагола и имени прилагательного");
         answersList.add("Наречия и глагола");
+        singleAnswerTask.setType(Type.SingleAnswer);
         singleAnswerTask.setAnswersList(answersList);
 
 
-        SingleAnswerTask singleAnswerTask2 = new SingleAnswerTask();
+        Task singleAnswerTask2 = new Task();
         singleAnswerTask2.setQuestion("Выберите из приведённых вариантов ответа причастие");
         List<String> answersList2 = new ArrayList<>();
         answersList2.add("Идя");
         answersList2.add("Лежавший");
         answersList2.add("Горячо");
+        singleAnswerTask2.setType(Type.SingleAnswer);
         singleAnswerTask2.setAnswersList(answersList2);
 
 
 
-        MultyAnswerTask multyAnswerTask = new MultyAnswerTask();
+        Task multyAnswerTask = new Task();
         multyAnswerTask.setQuestion("Свойства каких частей речи в себе соединило причастие?");
         List<String> answersList3 = new ArrayList<>();
         answersList3.add("Глагол");
         answersList3.add("Имя прилагательное");
         answersList3.add("Наречие");
-        singleAnswerTask.setAnswersList(answersList);
+        multyAnswerTask.setType(Type.MultyAnswer);
+        multyAnswerTask.setAnswersList(answersList3);
 
 
-        MultyAnswerTask multyAnswerTask2 = new MultyAnswerTask();
+        Task multyAnswerTask2 = new Task();
         multyAnswerTask2.setQuestion("Выберите из приведённых вариантов ответа причастие");
         List<String> answersList4 = new ArrayList<>();
         answersList4.add("Идя");
         answersList4.add("Лежавший");
         answersList4.add("Бежавший");
-        singleAnswerTask.setAnswersList(answersList);
+        multyAnswerTask2.setType(Type.MultyAnswer);
+        multyAnswerTask2.setAnswersList(answersList4);
 
         Random r = new Random();
 
@@ -77,12 +82,19 @@ public class ShowThemeController {
             taskList.addTask(multyAnswerTask2);
         }
 
-        model.addAttribute(taskList);
+        model.addAttribute("taskList", taskList);
+
+        System.out.println(model.toString());
     }
 
     @ModelAttribute(name = "taskList")
     public TestList order(){
         return new TestList();
+    }
+
+    @ModelAttribute(name = "task")
+    public Task task(){
+        return new Task();
     }
 
     @GetMapping
