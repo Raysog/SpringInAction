@@ -44,6 +44,9 @@
 
 		<div th:each="task : ${taskList}">
 			<h1 th:text="${task.question}"></h1>
+			<div th:each="answer : ${task.answersList}">
+				<p th:text="${answer}"></p>
+			</div>
 <!--			<div class="ingredient-group" id="sauces">-->
 <!--				<h3>Designate your sauce:</h3>-->
 <!--				<div th:each="ingredient : ${sauce}">-->

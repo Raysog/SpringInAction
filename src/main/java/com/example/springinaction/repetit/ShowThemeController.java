@@ -1,4 +1,4 @@
-package com.example.springinaction;
+package com.example.springinaction.repetit;
 
 import com.example.springinaction.repetit.testTask.TestList;
 import com.example.springinaction.repetit.testTask.Task;
@@ -26,7 +26,8 @@ public class ShowThemeController {
     @ModelAttribute
     public void addQuestionsToModel(Model model) {
 
-        TestList taskList = new TestList();
+        TestList taskList2 = new TestList();
+        List<Task> taskList = new ArrayList<>();
 
         Task singleAnswerTask = new Task();
         singleAnswerTask.setQuestion("Свойства каких частей речи в себе соединило причастие?");
@@ -35,6 +36,7 @@ public class ShowThemeController {
         answersList.add("Глагола и имени прилагательного");
         answersList.add("Наречия и глагола");
         singleAnswerTask.setType(Type.SingleAnswer);
+        singleAnswerTask.setCorrectAnswer("Глагола и имени прилагательного");
         singleAnswerTask.setAnswersList(answersList);
 
 
@@ -45,6 +47,7 @@ public class ShowThemeController {
         answersList2.add("Лежавший");
         answersList2.add("Горячо");
         singleAnswerTask2.setType(Type.SingleAnswer);
+        singleAnswerTask2.setCorrectAnswer("Лежавший");
         singleAnswerTask2.setAnswersList(answersList2);
 
 
@@ -56,6 +59,7 @@ public class ShowThemeController {
         answersList3.add("Имя прилагательное");
         answersList3.add("Наречие");
         multyAnswerTask.setType(Type.MultyAnswer);
+        multyAnswerTask.setCorrectAnswer("Глагол|Имя прилагательное");
         multyAnswerTask.setAnswersList(answersList3);
 
 
@@ -66,6 +70,7 @@ public class ShowThemeController {
         answersList4.add("Лежавший");
         answersList4.add("Бежавший");
         multyAnswerTask2.setType(Type.MultyAnswer);
+        multyAnswerTask2.setCorrectAnswer("Бежавший|Лежавший");
         multyAnswerTask2.setAnswersList(answersList4);
 
         Random r = new Random();
@@ -75,12 +80,23 @@ public class ShowThemeController {
         System.out.println(num);
 
         if (num == 0) {
-            taskList.addTask(singleAnswerTask);
-            taskList.addTask(multyAnswerTask);
+            taskList.add(singleAnswerTask);
+            model.addAttribute("taskList", singleAnswerTask);
+            System.out.println(model.toString());
+            taskList.add(multyAnswerTask2);
+            model.addAttribute("taskList", multyAnswerTask2);
+            System.out.println(model.toString());
         } else {
-            taskList.addTask(singleAnswerTask2);
-            taskList.addTask(multyAnswerTask2);
+            taskList.add(singleAnswerTask2);
+            model.addAttribute("taskList", singleAnswerTask2);
+            System.out.println(model.toString());
+            taskList.add(multyAnswerTask);
+            model.addAttribute("taskList", multyAnswerTask);
+            System.out.println(model.toString());
         }
+
+        System.out.println(taskList.toString());
+
 
         model.addAttribute("taskList", taskList);
 
@@ -92,10 +108,10 @@ public class ShowThemeController {
         return new TestList();
     }
 
-    @ModelAttribute(name = "task")
-    public Task task(){
-        return new Task();
-    }
+//    @ModelAttribute(name = "task")
+//    public Task task(){
+//        return new Task();
+//    }
 
     @GetMapping
     public String showDesignForm(){

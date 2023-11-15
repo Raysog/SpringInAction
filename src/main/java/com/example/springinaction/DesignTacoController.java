@@ -36,7 +36,10 @@ public class DesignTacoController {
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filerByType(ingredients, type));
+            System.out.println(model.toString());
         }
+
+        System.out.println(model.toString());
     }
 
     @ModelAttribute(name = "tacoOrder")
