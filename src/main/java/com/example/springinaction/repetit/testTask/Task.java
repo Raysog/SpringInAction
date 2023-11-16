@@ -8,6 +8,8 @@ import java.util.List;
 public class Task {
     private String question;
 
+    private String id;
+
     private List<String> answersList;
 
     private String studentAnswer;

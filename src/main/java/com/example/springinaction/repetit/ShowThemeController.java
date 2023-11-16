@@ -36,6 +36,7 @@ public class ShowThemeController {
         answersList.add("Глагола и имени прилагательного");
         answersList.add("Наречия и глагола");
         singleAnswerTask.setType(Type.SingleAnswer);
+        singleAnswerTask.setId("id1");
         singleAnswerTask.setCorrectAnswer("Глагола и имени прилагательного");
         singleAnswerTask.setAnswersList(answersList);
 
@@ -47,6 +48,7 @@ public class ShowThemeController {
         answersList2.add("Лежавший");
         answersList2.add("Горячо");
         singleAnswerTask2.setType(Type.SingleAnswer);
+        singleAnswerTask2.setId("id2");
         singleAnswerTask2.setCorrectAnswer("Лежавший");
         singleAnswerTask2.setAnswersList(answersList2);
 
@@ -59,6 +61,7 @@ public class ShowThemeController {
         answersList3.add("Имя прилагательное");
         answersList3.add("Наречие");
         multyAnswerTask.setType(Type.MultyAnswer);
+        multyAnswerTask.setId("id3");
         multyAnswerTask.setCorrectAnswer("Глагол|Имя прилагательное");
         multyAnswerTask.setAnswersList(answersList3);
 
@@ -70,6 +73,7 @@ public class ShowThemeController {
         answersList4.add("Лежавший");
         answersList4.add("Бежавший");
         multyAnswerTask2.setType(Type.MultyAnswer);
+        multyAnswerTask2.setId("id4");
         multyAnswerTask2.setCorrectAnswer("Бежавший|Лежавший");
         multyAnswerTask2.setAnswersList(answersList4);
 
@@ -80,9 +84,14 @@ public class ShowThemeController {
         System.out.println(num);
 
         if (num == 0) {
+            taskList.add(singleAnswerTask2);
+            model.addAttribute("taskList", singleAnswerTask2);
+            System.out.println(model.toString());
+
             taskList.add(singleAnswerTask);
             model.addAttribute("taskList", singleAnswerTask);
             System.out.println(model.toString());
+
             taskList.add(multyAnswerTask2);
             model.addAttribute("taskList", multyAnswerTask2);
             System.out.println(model.toString());
