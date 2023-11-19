@@ -5,110 +5,97 @@
 </head>
 
 <body>
-<div id = "wrap">
-	<header>
-		<div class="logo">
-			<img th:src="@{/images/logo_result.png}" alt="Правила русского языка">
-		</div>
-		<nav>
-			<ul>
-				<li><a href="#">Главная</a></li>
-				<li><a href="#">Правила</a></li>
-				<li><a href="#">Упражнения</a></li>
-				<li><a href="#">Статьи</a></li>
-				<li><a href="#">О нас</a></li>
-				<li><a href="#">Контакты</a></li>
-			</ul>
-		</nav>
-	</header>
-</div>
-
-
-<div class="container">
-	<h2>Примеры</h2>
-	<h3>Полнозначные причастия:</h3>
-	<p>На столе лежала <b>открытая</b> книга. (<i>Какая? - открытая</i>)</p>
-	<p>Он встретил <b>улыбающегося</b> друга. (<i>Кого? - улыбающегося</i>)</p>
-
-	<h3>Находящиеся в конструкциях с глаголом "быть":</h3>
-	<p>Он был <b>учащимся</b> в том университете. (<i>Кем? - учащимся</i>)</p>
-	<p>Картина была <b>нарисована</b> художником-абстракционистом. (<i>Кем? - нарисована</i>)</p>
-
-	<h2>Картинки</h2>
-	<!--	<img src="prichastie_example1.jpg" alt="Пример 1">
-    <img src="prichastie_example2.jpg" alt="Пример 2"> -->
-</div>
-
-<div class="container">
-	<div class="tabs">
-
-		<div th:each="task : ${taskList}">
-			<h1 th:text="${task.question}"></h1>
-			<div th:switch="${task.type}">
-				<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).SingleAnswer}">
-					<div th:each="answer : ${task.answersList}">
-						<input type="radio" th:name="${task.id}"
-							   th:text="${answer}"/>
-<!--						<span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
-					</div>
-				</div>
-				<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).MultyAnswer}">
-					<div th:each="answer : ${task.answersList}">
-						<input type="checkbox"
-							   th:text="${answer}"/>
-						<!--						<span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
-					</div>
-				</div>
-				<h1 th:case="*">Что-то пошло не так:(</h1>
+	<div id = "wrap">
+		<header>
+			<div class="logo">
+				<img th:src="@{/images/logo_result.png}" alt="Правила русского языка">
 			</div>
+			<nav>
+				<ul>
+					<li><a href="#">Главная</a></li>
+					<li><a href="#">Правила</a></li>
+					<li><a href="#">Упражнения</a></li>
+					<li><a href="#">Статьи</a></li>
+					<li><a href="#">О нас</a></li>
+					<li><a href="#">Контакты</a></li>
+				</ul>
+			</nav>
+		</header>
+	</div>
 
-<!--			<div class="ingredient-group" id="sauces">-->
-<!--				<h3>Designate your sauce:</h3>-->
-<!--				<div th:each="ingredient : ${sauce}">-->
-<!--					<input th:field="*{ingredients}" type="checkbox"-->
-<!--						   th:value="${ingredient.id}"/>-->
-<!--					<span th:text="${ingredient.name}">INGREDIENT</span><br/>-->
-<!--				</div>-->
-<!--			</div>-->
-		</div>
 
-		<div id="tab1" class="tab-content active">
-			<h3></h3>
-			<p>This is the content for tab 1.</p>
-		</div>
+	<div class="container">
+		<h2>Примеры</h2>
+		<h3>Полнозначные причастия:</h3>
+		<p>На столе лежала <b>открытая</b> книга. (<i>Какая? - открытая</i>)</p>
+		<p>Он встретил <b>улыбающегося</b> друга. (<i>Кого? - улыбающегося</i>)</p>
 
-		<div>
-			<table class="list">
-				<th class="question_number"><div class="new_question">1</div></th>
-				<th class="question_number"><div class="new_question">2</div></th>
-				<th class="question_number"><div class="answered question_number">3</div></th>
-				<th class="question_number"><div class="answered question_number">4</div></th>
-			</table>
-		</div>
+		<h3>Находящиеся в конструкциях с глаголом "быть":</h3>
+		<p>Он был <b>учащимся</b> в том университете. (<i>Кем? - учащимся</i>)</p>
+		<p>Картина была <b>нарисована</b> художником-абстракционистом. (<i>Кем? - нарисована</i>)</p>
 
-		<div>
-			<button class="tab-link next_question" data-tab="tab1">Следующий вопрос</button>
-			<button class="tab-link finish_test" data-tab="tab2">Завершить</button>
+		<h2>Картинки</h2>
+		<!--	<img src="prichastie_example1.jpg" alt="Пример 1">
+		<img src="prichastie_example2.jpg" alt="Пример 2"> -->
+	</div>
+
+	<div class="container">
+		<div class="tabs">
+			<form method="POST" th:object="${task}" name="question">
+				<h1 th:text="${task.result}"></h1>
+				<h1 th:text="${task.question}"></h1>
+				<div th:switch="${task.type}">
+					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).SingleAnswer}">
+						<div th:each="answer : ${task.answersList}">
+							<input type="radio" th:name="${task.id}" th:field="${task.studentAnswer}" th:value="${answer}" th:text="${answer}"/>
+						</div>
+					</div>
+					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).MultyAnswer}">
+						<div th:each="answer : ${task.answersList}">
+							<input type="checkbox"
+								   th:text="${answer}"/>
+						</div>
+					</div>
+					<h1 th:case="*">Что-то пошло не так:(</h1>
+				</div>
+
+				<div>
+					<button>Проверить</button>
+				</div>
+
+				<div>
+					<table class="list">
+						<div th:each="taskNumber : ${taskNumberList}">
+							<div class="question_number" th:switch="${task.result}">
+								<div th:case="yes">
+									<th class="correct_answered" th:text="${taskNumber}"></th>
+								</div>
+								<div th:case="no">
+									<th class="fail_answered" th:text="${taskNumber}"></th>
+								</div>
+								<div th:case="*">
+									<th class="new_question" th:text="${taskNumber}"></th>
+								</div>
+							</th>
+						</div>
+					</table>
+				</div>
+			</form>
 		</div>
 
 	</div>
 
-</div>
+	<!--<div>-->
+	<!--	<input type="text" id="param" placeholder="Param"><br><br>-->
+	<!--	-->
 
-<div>
-	<input type="text" id="param" placeholder="Param"><br><br>
-	<button id="button">Send Request</button>
-
-	<div id="result"></div>
-</div>
+	<!--	<div id="result"></div>-->
+	<!--</div>-->
 
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" th:src="@{/js/getQuestion.js}"></script>
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/getQuestion.js}"></script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
 
-<script>
-
-</script>
 </body>
 </html>

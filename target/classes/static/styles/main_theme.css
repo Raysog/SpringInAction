@@ -92,23 +92,19 @@
         border:  10px;
 	}
 
-    .answered{
+    .correct_answered{
         color: #006400;
     }
+
+	.fail_answered{
+		color: #ff0000;
+	}
 
     .new_question{
         color: #FFD700;
     }
 	
-	.next_question{
-		float: left;
-		width: 30%;
-    }
-	
-	.finish_test{
-		float: right;
-		width: 30%;
-    }
+
 
 	th{
 		border: 1px solid;

@@ -18,6 +18,8 @@ public class Task {
 
     private Type type;
 
+    private String result;
+
     public enum Type {
         MultyAnswer, MultyRowAnswer, SingleAnswer, SingleRowAnswer
     }
