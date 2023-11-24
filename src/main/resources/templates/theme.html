@@ -41,8 +41,7 @@
 
 	<div class="container">
 		<div class="tabs">
-			<form method="POST" th:object="${task}" name="question">
-				<h1 th:text="${task.result}"></h1>
+			<form method="POST" th:object="${task}" name="question" action="/theme/checkAnswer">
 				<h1 th:text="${task.question}"></h1>
 				<div th:switch="${task.type}">
 					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).SingleAnswer}">
@@ -57,6 +56,16 @@
 						</div>
 					</div>
 					<h1 th:case="*">Что-то пошло не так:(</h1>
+				</div>
+
+				<div th:switch="${task.result}">
+					<div th:case="yes">
+						<img th:src="@{/images/right.png}" alt="Правильный ответ" style="width:2%;height:2%">
+					</div>
+					<div th:case="no">
+						<img th:src="@{/images/wrong.png}" alt="Неправильный ответ" style="width:2%;height:2%">
+					</div>
+					<div th:case="*"></div>
 				</div>
 
 				<div>

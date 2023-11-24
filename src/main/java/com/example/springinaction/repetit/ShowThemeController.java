@@ -38,7 +38,7 @@ public class ShowThemeController {
 
         model.addAttribute("task", firstTask);
         model.addAttribute("taskNumberList", taskList.getTaskNumberList());
-
+        System.out.println("addQuestionsToModel");
         System.out.println(model.toString());
     }
 
@@ -54,10 +54,10 @@ public class ShowThemeController {
         return "theme";
     }
 
-    @PostMapping
+    @PostMapping("/checkAnswer")
     public String checkAnswer(
             @ModelAttribute Task task){
-
+        System.out.println("CheckAnswer");
         if (task.getCorrectAnswer().equals(task.getStudentAnswer())) {
             task.setResult("yes");
         } else {
