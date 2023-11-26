@@ -8,7 +8,7 @@ import java.util.List;
 public class Task {
     private String question;
 
-    private String id;
+    private int id;
 
     private List<String> answersList;
 

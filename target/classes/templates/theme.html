@@ -71,24 +71,26 @@
 				<div>
 					<button>Проверить</button>
 				</div>
-
-				<div>
-					<table class="list">
-						<div th:each="taskNumber : ${taskNumberList}">
-							<div class="question_number" th:switch="${task.result}">
-								<div th:case="yes">
-									<th class="correct_answered" th:text="${taskNumber}"></th>
-								</div>
-								<div th:case="no">
-									<th class="fail_answered" th:text="${taskNumber}"></th>
-								</div>
-								<div th:case="*">
-									<th class="new_question" th:text="${taskNumber}"></th>
-								</div>
+			</form>
+		</div>
+		<h1 th:text="${taskNum}"></h1>
+		<div>
+			<form method="POST" th:object="${taskNum}">
+				<table class="list">
+					<div th:each="showingTask : ${taskList}">
+						<div th:switch="${showingTask.result}">
+							<th th:case="yes">
+								<input type="submit" th:name="questionNum" th:value="${showingTask.id}"/>
+							</th>
+							<th th:case="no">
+								<input type="submit" th:name="questionNum" th:value="${showingTask.id}"/>
+							</th>
+							<th th:case="*">
+								<input type="submit" th:name="questionNum" th:value="${showingTask.id}"/>
+<!--									<button  type="submit" th:name="${task.id}" th:field="${task.id}" th:value="${task.id}"/>-->
 							</th>
 						</div>
-					</table>
-				</div>
+				</table>
 			</form>
 		</div>
 

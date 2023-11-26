@@ -22,7 +22,7 @@ public class TestList {
             answersList.add("Глагола и имени прилагательного");
             answersList.add("Наречия и глагола");
             singleAnswerTask.setType(Task.Type.SingleAnswer);
-            singleAnswerTask.setId("id1");
+            singleAnswerTask.setId(0);
 //            singleAnswerTask.setResult("no");
             singleAnswerTask.setCorrectAnswer("Глагола и имени прилагательного");
             singleAnswerTask.setAnswersList(answersList);
@@ -35,7 +35,7 @@ public class TestList {
             answersList2.add("Лежавший");
             answersList2.add("Горячо");
             singleAnswerTask2.setType(Task.Type.SingleAnswer);
-            singleAnswerTask2.setId("id2");
+            singleAnswerTask2.setId(1);
 //            singleAnswerTask2.setResult("no");
             singleAnswerTask2.setCorrectAnswer("Лежавший");
             singleAnswerTask2.setAnswersList(answersList2);
@@ -49,7 +49,7 @@ public class TestList {
             answersList3.add("Имя прилагательное");
             answersList3.add("Наречие");
             multyAnswerTask.setType(Task.Type.MultyAnswer);
-            multyAnswerTask.setId("id3");
+            multyAnswerTask.setId(2);
 //            multyAnswerTask.setResult("no");
             multyAnswerTask.setCorrectAnswer("Глагол|Имя прилагательное");
             multyAnswerTask.setAnswersList(answersList3);
@@ -62,7 +62,7 @@ public class TestList {
             answersList4.add("Лежавший");
             answersList4.add("Бежавший");
             multyAnswerTask2.setType(Task.Type.MultyAnswer);
-            multyAnswerTask2.setId("id4");
+            multyAnswerTask2.setId(3);
 //            multyAnswerTask2.setResult("no");
             multyAnswerTask2.setCorrectAnswer("Бежавший|Лежавший");
             multyAnswerTask2.setAnswersList(answersList4);
