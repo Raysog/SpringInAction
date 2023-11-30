@@ -26,7 +26,7 @@ import java.util.Random;
 @RequestMapping("/theme")
 public class ShowThemeController {
 
-    private TestList taskList;
+    private ArrayList<Task> taskList;
     private Task task;
 
 
@@ -36,20 +36,29 @@ public class ShowThemeController {
 
         System.out.println("addQuestionsToModelWithTask");
 
-        taskList = TestList.getInstance();
 
         if (task == null){
+            Random random = new Random();
+            int rndCnt = random.nextInt(TestList.getInstance().getTaskList().size()-1) + 1;
+            taskList = TestList.getQuestionList(rndCnt);
             System.out.println("first try");
-            Task initor = taskList.getTaskList().get(0);
-            task = new Task();
-            task.setQuestion(initor.getQuestion());
-            task.setAnswersList(initor.getAnswersList());
-            task.setCorrectAnswer(initor.getCorrectAnswer());
-            task.setId(initor.getId());
-            task.setType(initor.getType());
-            task.setResult(initor.getResult());
+            Task initor = taskList.get(0);
+            task = initor;
+//            task.setQuestion(initor.getQuestion());
+//            task.setAnswersList(initor.getAnswersList());
+//            task.setCorrectAnswer(initor.getCorrectAnswer());
+//            task.setId(initor.getId());
+//            task.setType(initor.getType());
+//            task.setResult(initor.getResult());
+            System.out.println(taskList.size());
+            for (Task tsk :
+                    taskList) {
+                System.out.println(tsk.toString());
+            }
+//            System.out.println(initor.toString());
             model.addAttribute("task", task);
-            model.addAttribute("taskList", taskList.getTaskList());
+            model.addAttribute("taskList", taskList);
+            System.out.println(model.toString());
         }
         else {
             System.out.println("not first try");
@@ -103,13 +112,13 @@ public class ShowThemeController {
         System.out.println(questionNum);
         int taskId = (Integer.parseInt(questionNum));
 
-        Task saver = this.taskList.getTaskList().get(task.getId());
+        Task saver = this.taskList.get(task.getId());
 //save student answer
         System.out.println("saver: " + saver.toString());
         saver.setResult(task.getResult());
         saver.setStudentAnswer(task.getStudentAnswer());
 
-        Task updtTask = this.taskList.getTaskList().get(taskId);
+        Task updtTask = this.taskList.get(taskId);
 //update task in model
         System.out.println("updtTask: " + updtTask.toString());
         task.setQuestion(updtTask.getQuestion());
@@ -122,13 +131,8 @@ public class ShowThemeController {
         System.out.println(task);
         System.out.println("get question task" + task.toString());
         System.out.println(model.toString());
-        System.out.println(this.taskList.getTaskList().toString());
+        System.out.println(this.taskList.toString());
         return "redirect:/theme";
     }
 
-//    @PostMapping("/form")
-//    public String processForm(@ModelAttribute("questionNum") String taskNum) {
-//        System.out.println("Task number: " + taskNum);
-//        return "redirect:/";
-//    }
 }

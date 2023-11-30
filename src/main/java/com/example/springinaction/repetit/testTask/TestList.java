@@ -1,8 +1,8 @@
 package com.example.springinaction.repetit.testTask;
 
 import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 import com.example.springinaction.repetit.testTask.Task;
 import lombok.Data;
 
@@ -88,6 +88,28 @@ public class TestList {
             return TestListHolder.HOLDER_INSTANCE;
         }
 
+        public static ArrayList getQuestionList(int count){
+            System.out.println("1");
+            TestList list = TestList.getInstance();
+            System.out.println("11");
+            ArrayList<Task> questionList = new ArrayList<>();
+            System.out.println("111");
+            Set<Integer> idSet = new HashSet<>();
+            System.out.println("1111");
+            int max = 3;
+            Random random = new Random();
+            int randomNum;
+            while (idSet.size() < count) {
+                randomNum = random.nextInt(max);
+                if (!idSet.contains(randomNum)){
+                    idSet.add(randomNum);
+                    System.out.println("11111");
+                    questionList.add(list.getTaskList().get(randomNum).clone());
+                    System.out.println("1111111");
+                }
+            }
+            return questionList;
+        }
     @Override
     public String toString() {
         String res = "";
@@ -98,7 +120,4 @@ public class TestList {
         return res;
     }
 
-    public int getCountQuestionsInList(){
-        return this.taskList.size();
-    }
 }
