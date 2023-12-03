@@ -46,13 +46,24 @@
 				<div th:switch="${task.type}">
 					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).SingleAnswer}">
 						<div th:each="answer : ${task.answersList}">
-							<input type="radio" th:name="${task.id}" th:field="${task.studentAnswer}" th:value="${answer}" th:text="${answer}"/>
+							<input type="radio"
+								   th:name="${task.id}"
+								   th:field="${task.studentAnswers}"
+								   th:value="${answer}"
+								   th:text="${answer}"/>
 						</div>
 					</div>
 					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).MultyAnswer}">
 						<div th:each="answer : ${task.answersList}">
-							<input type="checkbox"
-								   th:text="${answer}"/>
+							<input
+								   th:type="checkbox"
+								   th:checked="true"
+								   th:name="${task.id}"
+								   th:field="${task.studentAnswers}"
+								   th:value="${answer}"
+								   th:text="${answer}"
+								   />
+
 						</div>
 					</div>
 					<h1 th:case="*">Что-то пошло не так:(</h1>
@@ -80,13 +91,13 @@
 					<div th:each="showingTask : ${taskList}">
 						<div th:switch="${showingTask.result}">
 							<th th:case="yes">
-								<input type="submit" th:name="questionNum" th:value="${showingTask.id}"/>
+								<input type="submit" th:name="questionNum" th:value="${showingTask.showingId}" />
 							</th>
 							<th th:case="no">
-								<input type="submit" th:name="questionNum" th:value="${showingTask.id}"/>
+								<input type="submit" th:name="questionNum" th:value="${showingTask.showingId}" />
 							</th>
 							<th th:case="*">
-								<input type="submit" th:name="questionNum" th:value="${showingTask.id}"/>
+								<input type="submit" th:name="questionNum" th:value="${showingTask.showingId}" />
 <!--									<button  type="submit" th:name="${task.id}" th:field="${task.id}" th:value="${task.id}"/>-->
 							</th>
 						</div>

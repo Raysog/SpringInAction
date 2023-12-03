@@ -23,8 +23,9 @@ public class TestList {
             answersList.add("Наречия и глагола");
             singleAnswerTask.setType(Task.Type.SingleAnswer);
             singleAnswerTask.setId(0);
-//            singleAnswerTask.setResult("no");
-            singleAnswerTask.setCorrectAnswer("Глагола и имени прилагательного");
+            List<String> stusentAnswers = new ArrayList<>();
+            singleAnswerTask.setStudentAnswers(stusentAnswers);
+            singleAnswerTask.setCorrectAnswer("[Глагола и имени прилагательного]");
             singleAnswerTask.setAnswersList(answersList);
 
 
@@ -36,8 +37,9 @@ public class TestList {
             answersList2.add("Горячо");
             singleAnswerTask2.setType(Task.Type.SingleAnswer);
             singleAnswerTask2.setId(1);
-//            singleAnswerTask2.setResult("no");
-            singleAnswerTask2.setCorrectAnswer("Лежавший");
+            List<String> stusentAnswers2 = new ArrayList<>();
+            singleAnswerTask2.setStudentAnswers(stusentAnswers2);
+            singleAnswerTask2.setCorrectAnswer("[Лежавший]");
             singleAnswerTask2.setAnswersList(answersList2);
 
 
@@ -50,8 +52,9 @@ public class TestList {
             answersList3.add("Наречие");
             multyAnswerTask.setType(Task.Type.MultyAnswer);
             multyAnswerTask.setId(2);
-//            multyAnswerTask.setResult("no");
-            multyAnswerTask.setCorrectAnswer("Глагол|Имя прилагательное");
+            List<String> stusentAnswers3 = new ArrayList<>();
+            multyAnswerTask.setStudentAnswers(stusentAnswers3);
+            multyAnswerTask.setCorrectAnswer("[Глагол, Имя прилагательное]");
             multyAnswerTask.setAnswersList(answersList3);
 
 
@@ -59,23 +62,24 @@ public class TestList {
             multyAnswerTask2.setQuestion("Выберите из приведённых вариантов ответа причастие");
             List<String> answersList4 = new ArrayList<>();
             answersList4.add("Идя");
-            answersList4.add("Лежавший");
             answersList4.add("Бежавший");
+            answersList4.add("Лежавший");
             multyAnswerTask2.setType(Task.Type.MultyAnswer);
             multyAnswerTask2.setId(3);
-//            multyAnswerTask2.setResult("no");
-            multyAnswerTask2.setCorrectAnswer("Бежавший|Лежавший");
+            List<String> stusentAnswers4 = new ArrayList<>();
+            multyAnswerTask2.setStudentAnswers(stusentAnswers4);
+            multyAnswerTask2.setCorrectAnswer("[Бежавший, Лежавший]");
             multyAnswerTask2.setAnswersList(answersList4);
 
             taskList.add(singleAnswerTask);
             taskList.add(singleAnswerTask2);
             taskList.add(multyAnswerTask);
-//            taskList.add(multyAnswerTask2);
+            taskList.add(multyAnswerTask2);
 
             taskNumberList.add(1);
             taskNumberList.add(2);
             taskNumberList.add(3);
-//            taskNumberList.add(4);
+            taskNumberList.add(4);
 
         }
 
@@ -89,25 +93,26 @@ public class TestList {
         }
 
         public static ArrayList getQuestionList(int count){
-            System.out.println("1");
+//      count [1;4]
             TestList list = TestList.getInstance();
-            System.out.println("11");
             ArrayList<Task> questionList = new ArrayList<>();
-            System.out.println("111");
             Set<Integer> idSet = new HashSet<>();
-            System.out.println("1111");
-            int max = 3;
+            Task newTask;
+            int maxId = 3;
             Random random = new Random();
             int randomNum;
             while (idSet.size() < count) {
-                randomNum = random.nextInt(max);
+                System.out.println("size: " + idSet.size());
+                randomNum = random.nextInt(maxId+1);
+                System.out.println(randomNum);
                 if (!idSet.contains(randomNum)){
                     idSet.add(randomNum);
-                    System.out.println("11111");
-                    questionList.add(list.getTaskList().get(randomNum).clone());
-                    System.out.println("1111111");
+                    newTask = list.getTaskList().get(randomNum).clone();
+                    questionList.add(newTask);
+                    newTask.setShowingId(questionList.size());
                 }
             }
+            Collections.sort(questionList, Task.COMPARE_BY_SHOWING_ID);
             return questionList;
         }
     @Override
