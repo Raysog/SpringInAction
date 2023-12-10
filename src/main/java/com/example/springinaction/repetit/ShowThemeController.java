@@ -4,6 +4,7 @@ import com.example.springinaction.Taco;
 import com.example.springinaction.TacoOrder;
 import com.example.springinaction.repetit.testTask.TestList;
 import com.example.springinaction.repetit.testTask.Task;
+import com.example.springinaction.repetit.testTask.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -19,52 +20,74 @@ import java.util.*;
 
 @Controller
 @Slf4j
-@SessionAttributes({"task", "taskList"})
+@SessionAttributes({"question", "taskList"})
 @RequestMapping("/theme")
 public class ShowThemeController {
 
     private ArrayList<Task> taskList;
 
-    private Map<String, Integer> userAgentMap;
+    private Map<String, User> userMap;
     private Task task;
 
 
 
 
     @ModelAttribute
-    public void addQuestionsToModel(Model model) {
-
+    public void addQuestionsToModel(Model model, @RequestHeader Map<String, String> headers) {
+        System.out.println("___________________________________________________");
         System.out.println("addQuestionsToModelWithTask");
+        String userAgent = headers.get("user-agent");
+        System.out.println(userAgent);
 
+        User currentUser = null;
 
-        if (userAgentMap == null){
-            userAgentMap = new HashMap<>();
+        if (userMap == null) {
+            userMap = new HashMap<>();
+        }
+
+        if (!userMap.containsKey(userAgent)){
+            System.out.println("first try for user: " + userAgent);
             Random random = new Random();
             int rndCnt = random.nextInt(TestList.getInstance().getTaskList().size())+1;
             rndCnt = 4;
             System.out.println(rndCnt);
-            taskList = TestList.getQuestionList(rndCnt);
-            System.out.println("first try");
-            task = taskList.get(0).clone();
-            System.out.println(taskList.size());
-            for (Task tsk :
-                    taskList) {
-                System.out.println(tsk.toString());
-            }
-            model.addAttribute("task", task);
-            model.addAttribute("taskList", taskList);
-            System.out.println(model.toString());
+            User newUser = new User();
+            newUser.setUserAgent(userAgent);
+            newUser.setUsersQuestionsList(TestList.getQuestionList(rndCnt));
+            newUser.setCurrentTask(newUser.getUsersQuestionsList().get(0).clone());
+            currentUser = newUser;
+            userMap.put(userAgent, newUser);
+//
+
         }
         else {
-            System.out.println("not first try");
+            currentUser = userMap.get(userAgent);
+            System.out.println("not first try for user: " + userAgent);
         }
-        System.out.println("task after check: " + task.toString());
+        this.task = currentUser.getCurrentTask().clone();
+        this.taskList = currentUser.getUsersQuestionsList();
+
+        model.addAttribute("question", this.task);
+        model.addAttribute("taskList", this.taskList);
+
         System.out.println(model.toString());
         System.out.println("___________________________________________________");
 
     }
 
-    @ModelAttribute(name = "task")
+    @ModelAttribute(name = "taskList")
+    public ArrayList<Task> taskList(){
+        System.out.println("Create new taskList");
+        if (this.taskList == null){
+            System.out.println("return new taskList");
+            return new ArrayList<>();
+        } else {
+            System.out.println("return current taskList");
+            return this.taskList;
+        }
+    }
+
+    @ModelAttribute(name = "question")
     public Task task(){
         System.out.println("Create new Task");
         if (this.task == null){
@@ -79,35 +102,44 @@ public class ShowThemeController {
 
     @GetMapping
     public String showDesignForm(@RequestHeader Map<String, String> headers){
+        System.out.println("_______________________________________________");
         System.out.println("GetMapping showDesignForm");
         System.out.println(task.toString());
         System.out.println();
         String userAgent = headers.get("user-agent");
-        if (userAgentMap.containsKey(userAgent)) {
-            userAgentMap.put(userAgent, userAgentMap.get(userAgent)+1);
-        } else {
-            userAgentMap.put(userAgent, 1);
+        for (Task taskForPrint :
+                this.taskList) {
+            System.out.println(taskForPrint.toString());
         }
-        for (String key :
-                userAgentMap.keySet()) {
-            System.out.println(key + ": " + userAgentMap.get(key));
-        }
-
         System.out.println("_______________________________________________");
         return "theme";
     }
 
     @PostMapping("/checkAnswer")
     public String checkAnswer(
-            @ModelAttribute Task task){
+            @ModelAttribute("question") Task task, @RequestHeader Map<String, String> headers){
         System.out.println("CheckAnswer");
-
-
-        if (task.getCorrectAnswer().equals(task.getStudentAnswers().toString())) {
-            task.setResult("yes");
-        } else {
-            task.setResult("no");
+        System.out.println("task from front: " + task.toString());
+        String userAgent = headers.get("user-agent");
+        System.out.println(userAgent);
+        User user = this.userMap.get(userAgent);
+        Task userCurrentTask = user.getCurrentTask();
+        for (String ans :
+                task.getStudentAnswers()) {
+            System.out.println("user answer: " + ans);
         }
+        if (userCurrentTask.getCorrectAnswer().equals(task.getStudentAnswers().toString())) {
+            System.out.println("right answer");
+            userCurrentTask.setResult("yes");
+            userCurrentTask.setStudentAnswers(task.getStudentAnswers());
+        } else {
+            System.out.println("wrong answer");
+            userCurrentTask.setResult("no");
+            userCurrentTask.setStudentAnswers(task.getStudentAnswers());
+        }
+        System.out.println("after update user task: " + userCurrentTask.toString());
+        this.task = userCurrentTask.clone();
+        System.out.println(this.task);
 //        log.info("Processing taco: {}", task);
 
         return "redirect:/theme";
@@ -115,12 +147,18 @@ public class ShowThemeController {
 
     @PostMapping
     public String getQuestion(
-            @ModelAttribute("questionNum") String questionNum, @ModelAttribute Task task, Model model){;
+            @ModelAttribute("questionNum") String questionNum, @ModelAttribute("question") Task task, Model model, @RequestHeader Map<String, String> headers){;
         System.out.println(task);
         System.out.println(questionNum);
+
+
+        String userAgent = headers.get("user-agent");
+        User user = userMap.get(userAgent);
+        ArrayList<Task> userQuestionList = user.getUsersQuestionsList();
+
         int taskShowingId = (Integer.parseInt(questionNum));
 
-        Task saver = taskList.stream()
+        Task saver = userQuestionList.stream()
                                 .filter(taskToSave -> taskToSave.getId() == task.getId())
                                 .findAny()
                                 .orElse(null);
@@ -128,26 +166,34 @@ public class ShowThemeController {
         System.out.println("saver: " + saver.toString());
         saver.setResult(task.getResult());
         saver.setStudentAnswers(task.getStudentAnswers());
-
-        Task updtTask = taskList.stream()
+        for (Task taskForPrint :
+                this.taskList) {
+            System.out.println(taskForPrint.toString());
+        }
+        Task showingTask = userQuestionList.stream()
                                 .filter(taskById -> taskById.getShowingId() == taskShowingId)
                                 .findAny()
                                 .orElse(null);
-//update task in model
-        System.out.println("updtTask: " + updtTask.toString());
-        task.setQuestion(updtTask.getQuestion());
-        task.setAnswersList(updtTask.getAnswersList());
-        task.setType(updtTask.getType());
-        task.setId(updtTask.getId());
-        task.setStudentAnswers(updtTask.getStudentAnswers());
-        task.setShowingId(updtTask.getShowingId());
-        task.setCorrectAnswer(updtTask.getCorrectAnswer());
-        task.setResult(updtTask.getResult());
+//update showing task in model
+        user.setCurrentTask(showingTask);
+        System.out.println("updtTask: " + showingTask.toString());
+        this.task.setQuestion(showingTask.getQuestion());
+        this.task.setAnswersList(showingTask.getAnswersList());
+        this.task.setType(showingTask.getType());
+        this.task.setId(showingTask.getId());
+        this.task.setStudentAnswers(showingTask.getStudentAnswers());
+        this.task.setShowingId(showingTask.getShowingId());
+        this.task.setCorrectAnswer(showingTask.getCorrectAnswer());
+        this.task.setResult(showingTask.getResult());
 
-        System.out.println(task);
-        System.out.println("get question task" + task.toString());
+        this.taskList = userQuestionList;
+
+        System.out.println("get question task" + this.task.toString());
+        for (Task taskForPrint :
+                this.taskList) {
+            System.out.println(taskForPrint.toString());
+        }
         System.out.println(model.toString());
-        System.out.println(this.taskList.toString());
         return "redirect:/theme";
     }
 

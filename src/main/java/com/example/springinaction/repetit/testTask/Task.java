@@ -43,6 +43,7 @@ public class Task {
         task.setCorrectAnswer(this.getCorrectAnswer());
         task.setStudentAnswers(this.getStudentAnswers());
         task.setType(this.getType());
+        task.setResult(this.getResult());
         return task;
     }
 
