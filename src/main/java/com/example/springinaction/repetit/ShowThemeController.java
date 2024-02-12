@@ -2,13 +2,16 @@ package com.example.springinaction.repetit;
 
 import com.example.springinaction.Taco;
 import com.example.springinaction.TacoOrder;
+import com.example.springinaction.repetit.dao.TaskRepository;
 import com.example.springinaction.repetit.testTask.TestList;
 import com.example.springinaction.repetit.testTask.Task;
 import com.example.springinaction.repetit.testTask.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,7 +32,12 @@ public class ShowThemeController {
     private Map<String, User> userMap;
     private Task task;
 
+    private final TaskRepository taskRepository;
 
+    @Autowired
+    public ShowThemeController(TaskRepository taskRepository){
+        this.taskRepository = taskRepository;
+    }
 
 
     @ModelAttribute
@@ -43,6 +51,26 @@ public class ShowThemeController {
 
         if (userMap == null) {
             userMap = new HashMap<>();
+
+            System.out.println("-----------------------------------------------");
+            System.out.println("DB read");
+
+//            Iterable<String> tasks = taskRepository.findAllTableName();
+//            System.out.println(tasks.toString());
+//            for (String task :
+//                    tasks) {
+//                System.out.println(task.toString());
+//            }
+
+            Iterable<Task> tasks = taskRepository.findAll();
+            System.out.println(tasks.toString());
+            for (Task task :
+                    tasks) {
+                System.out.println(task.toString());
+            }
+
+            System.out.println("-----------------------------------------------");
+
         }
 
         if (!userMap.containsKey(userAgent)){
