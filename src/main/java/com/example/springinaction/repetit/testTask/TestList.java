@@ -3,14 +3,21 @@ package com.example.springinaction.repetit.testTask;
 import java.io.BufferedReader;
 import java.util.*;
 
+import com.example.springinaction.repetit.dao.TaskReader;
+import com.example.springinaction.repetit.dao.TaskRepository;
 import com.example.springinaction.repetit.testTask.Task;
 import lombok.Data;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Data
 public class TestList {
 
+
         private List<Task> taskList;
         private List<Integer> taskNumberList;
+
+
+
         private TestList() {
             taskList = new ArrayList<>();
             taskNumberList = new ArrayList<>();
@@ -113,6 +120,9 @@ public class TestList {
                 }
             }
             Collections.sort(questionList, Task.COMPARE_BY_SHOWING_ID);
+
+
+
             return questionList;
         }
     @Override

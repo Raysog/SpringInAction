@@ -24,6 +24,15 @@ public class Task {
 
     private String result;
 
+    public Task(int question_id, String question, Type type) {
+        this.question = question;
+        this.id = question_id;
+        this.type = type;
+    }
+
+    public Task() {
+    }
+
     public enum Type {
         MultyAnswer, MultyRowAnswer, SingleAnswer, SingleRowAnswer
     }
