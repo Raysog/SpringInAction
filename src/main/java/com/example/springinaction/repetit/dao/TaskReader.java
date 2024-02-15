@@ -4,14 +4,14 @@ import com.example.springinaction.repetit.testTask.Task;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TaskReader implements TaskRepository{
+public class TaskReader implements TaskRepository {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -22,38 +22,66 @@ public class TaskReader implements TaskRepository{
     }
 
     @Override
-    public Iterable<Task> findAll() {
+    public ArrayList<Task> findQuestionsByThemeID() {
 
         System.out.println("method findAll");
-//
-//        Iterable<Task> queryResult = jdbcTemplate.query("select 1 as QUESTION_ID, 'qwer' as QUESTION, 'SingleAnswer' as TYPE"
-//                , this::mapRowToTask
-//                );
-        System.out.println(jdbcTemplate.getDataSource());
-        Iterable<Task> queryResult = jdbcTemplate.query("select QUESTION_ID, QUESTION, 'SingleAnswer' as TYPE from QUESTION_LIST where PUBLIC_FLG = 1"
+
+        Iterable<Task> queryResult = jdbcTemplate.query("select QUESTION_ID, QUESTION, TYPE from QUESTION_LIST inner join DICT_QUESTION_TYPE on QUESTION_LIST.QUESTION_TYPE = DICT_QUESTION_TYPE.TYPE_ID where PUBLIC_FLG = 1 and THEME_ID = ?"
                 , this::mapRowToTask
+                , 1
         );
+
+        ArrayList<Task> taskArrayList = new ArrayList<>();
+
+        for (Task task: queryResult) {
+            int questionID = task.getId();
+            task.setAnswersList(this.findAnswersByQuestionID(questionID));
+
+            List<String> studentAnswers = new ArrayList<>();
+            task.setStudentAnswers(studentAnswers);
+
+            task.setCorrectAnswer(this.findRightAnswersByQuestionID(questionID));
+
+            taskArrayList.add(task);
+        }
+
 
         System.out.println("method findAll finish");
-        return queryResult;
+        return taskArrayList;
     }
 
-    public Iterable<String> findAllTableName() {
 
-        System.out.println("method findAllTableName");
+    private List<String> findAnswersByQuestionID(int questionID) {
+        System.out.println("method findAnswersByQuestionID");
 
-
-        Iterable<String> queryResult = jdbcTemplate.query("SELECT * FROM repetitdb.sqlite_master WHERE type='table';"
-                , this::mapRowToString
+        Iterable<String> questionAnswers = jdbcTemplate.query("select ANSWER from ANSWER_LIST where QUESTION_ID = ?"
+                , this::mapRowToAnswerString
+                , questionID
         );
 
-        System.out.println("method findAllTableName finish");
-        return queryResult;
+        List<String> answersList = new ArrayList<>();
+
+        for (String answer: questionAnswers) {
+            answersList.add(answer);
+        }
+
+        System.out.println("method findAll findAnswersByQuestionID");
+        return answersList;
     }
 
-    private String mapRowToString(ResultSet row, int rowNum) throws SQLException{
-        System.out.println("method mapRowToTask");
-        return row.getString(rowNum);
+
+    private String findRightAnswersByQuestionID(int questionID) {
+        System.out.println("method findRightAnswersByQuestionID");
+
+        Iterable<String> questionAnswers = jdbcTemplate.query("select ANSWER from ANSWER_LIST where QUESTION_ID = ? and RIGHT_ANSWER_FLG = 1 order by ANSWER"
+                , this::mapRowToAnswerString
+                , questionID
+        );
+
+        String correctAnswer = questionAnswers.toString();
+
+        System.out.println("method findAll findRightAnswersByQuestionID");
+        return correctAnswer;
     }
 
     private Task mapRowToTask(ResultSet row, int rowNum) throws SQLException{
@@ -63,6 +91,11 @@ public class TaskReader implements TaskRepository{
              row.getString("QUESTION"),
              Task.Type.valueOf(row.getString("TYPE"))
         );
+    }
+
+    private String mapRowToAnswerString(ResultSet row, int rowNum) throws SQLException{
+        System.out.println("method mapRowToTask");
+        return row.getString("ANSWER");
     }
 
     @Override

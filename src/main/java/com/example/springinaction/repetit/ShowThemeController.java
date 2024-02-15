@@ -49,11 +49,8 @@ public class ShowThemeController {
 
         User currentUser = null;
 
-        if (userMap == null) {
-            userMap = new HashMap<>();
-
-            System.out.println("-----------------------------------------------");
-            System.out.println("DB read");
+        System.out.println("-----------------------------------------------");
+        System.out.println("DB read");
 
 //            Iterable<String> tasks = taskRepository.findAllTableName();
 //            System.out.println(tasks.toString());
@@ -62,14 +59,19 @@ public class ShowThemeController {
 //                System.out.println(task.toString());
 //            }
 
-            Iterable<Task> tasks = taskRepository.findAll();
-            System.out.println(tasks.toString());
-            for (Task task :
-                    tasks) {
-                System.out.println(task.toString());
-            }
+        Iterable<Task> tasks = taskRepository.findQuestionsByThemeID();
+        System.out.println(tasks.toString());
+        for (Task task :
+                tasks) {
+            System.out.println(task.toString());
+        }
 
-            System.out.println("-----------------------------------------------");
+        System.out.println("-----------------------------------------------");
+
+        if (userMap == null) {
+            userMap = new HashMap<>();
+
+
 
         }
 
