@@ -31,12 +31,14 @@ public class ShowThemeController {
 
     private Map<String, User> userMap;
     private Task task;
+    private TestList testList;
 
-    private final TaskRepository taskRepository;
+    //private final TaskRepository taskRepository;
 
     @Autowired
     public ShowThemeController(TaskRepository taskRepository){
-        this.taskRepository = taskRepository;
+        //this.taskRepository = taskRepository;
+        this.testList = new TestList(taskRepository);
     }
 
 
@@ -59,35 +61,33 @@ public class ShowThemeController {
 //                System.out.println(task.toString());
 //            }
 
-        Iterable<Task> tasks = taskRepository.findQuestionsByThemeID();
-        System.out.println(tasks.toString());
-        for (Task task :
-                tasks) {
-            System.out.println(task.toString());
-        }
+       // Iterable<Task> tasks = taskRepository.findQuestionsByThemeID();
+
 
         System.out.println("-----------------------------------------------");
 
         if (userMap == null) {
             userMap = new HashMap<>();
-
-
-
         }
 
         if (!userMap.containsKey(userAgent)){
             System.out.println("first try for user: " + userAgent);
             Random random = new Random();
-            int rndCnt = random.nextInt(TestList.getInstance().getTaskList().size())+1;
-            rndCnt = 4;
+            //int rndCnt = random.nextInt(testList.getTaskList().size())+1;
+            int rndCnt = 4;
             System.out.println(rndCnt);
             User newUser = new User();
             newUser.setUserAgent(userAgent);
-            newUser.setUsersQuestionsList(TestList.getQuestionList(rndCnt));
+            newUser.setUsersQuestionsList(testList.getQuestionList(rndCnt));
             newUser.setCurrentTask(newUser.getUsersQuestionsList().get(0).clone());
             currentUser = newUser;
             userMap.put(userAgent, newUser);
-//
+
+            System.out.println(newUser.getUsersQuestionsList().toString());
+            for (Task task :
+                    newUser.getUsersQuestionsList()) {
+                System.out.println(task.toString());
+            }
 
         }
         else {
