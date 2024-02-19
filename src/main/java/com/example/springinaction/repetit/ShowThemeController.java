@@ -33,8 +33,6 @@ public class ShowThemeController {
     private Task task;
     private TestList testList;
 
-    //private final TaskRepository taskRepository;
-
     @Autowired
     public ShowThemeController(TaskRepository taskRepository){
         //this.taskRepository = taskRepository;

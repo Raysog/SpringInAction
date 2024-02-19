@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Вход на сайт</title>
     <link rel="stylesheet" th:href="@{/styles/login.css}" >
@@ -9,8 +9,8 @@
     <div class="container">
         <h2>Вход на сайт</h2>
         <form method="POST" action="/checkLogin" th:object="${loginForm}">
-            <input type="text" th:field="*{loginForm.login}" placeholder="Логин" />
-            <input type="password" th:field="*{loginForm.pass}" placeholder="Пароль" />
+            <input type="text" th:field="*{login}" placeholder="Логин" />
+            <input type="password" th:field="*{pass}" placeholder="Пароль" />
             <input type="submit" value="Войти" class="btn">
         </form>
     </div>
