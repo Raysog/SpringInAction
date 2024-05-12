@@ -1,6 +1,6 @@
-package com.example.springinaction.repetit.dao;
+package com.rayzog.repetit.dao;
 
-import com.example.springinaction.repetit.testTask.Task;
+import com.rayzog.repetit.testTask.Task;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +16,7 @@ public class TaskReader implements TaskRepository {
     private JdbcTemplate jdbcTemplate;
 
     public TaskReader(JdbcTemplate jdbcTemplate) {
-
-        System.out.println("method construct TaskReader");
+        System.out.println("method construct TaskReaderSQLite");
         this.jdbcTemplate = jdbcTemplate;
     }
 

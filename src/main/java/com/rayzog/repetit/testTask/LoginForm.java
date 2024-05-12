@@ -1,4 +1,4 @@
-package com.example.springinaction.repetit.testTask;
+package com.rayzog.repetit.testTask;
 
 import lombok.Data;
 

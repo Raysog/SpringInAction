@@ -12,7 +12,7 @@
 			</div>
 			<nav>
 				<ul>
-					<li><a href="#">Главная</a></li>
+					<li><a href="/profile">Главная</a></li>
 					<li><a href="#">Правила</a></li>
 					<li><a href="#">Упражнения</a></li>
 					<li><a href="#">Статьи</a></li>
@@ -42,7 +42,7 @@
 			<form method="POST" th:object="${question}" name="question" action="/theme/checkAnswer">
 				<h1 th:text="${question.question}"></h1>
 				<div th:switch="${question.type}">
-					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).SingleAnswer}">
+					<div th:case="${T(com.rayzog.repetit.testTask.Task.Type).SingleAnswer}">
 						<div th:each="answer : ${question.answersList}">
 							<input type="radio"
 								   th:name="${question.id}"
@@ -51,7 +51,7 @@
 								   th:text="${answer}"/>
 						</div>
 					</div>
-					<div th:case="${T(com.example.springinaction.repetit.testTask.Task.Type).MultyAnswer}">
+					<div th:case="${T(com.rayzog.repetit.testTask.Task.Type).MultyAnswer}">
 						<div th:each="answer : ${question.answersList}">
 							<input
 								   th:type="checkbox"

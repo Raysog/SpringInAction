@@ -1,23 +1,14 @@
-package com.example.springinaction.repetit;
+package com.rayzog.repetit;
 
-import com.example.springinaction.Taco;
-import com.example.springinaction.TacoOrder;
-import com.example.springinaction.repetit.dao.TaskRepository;
-import com.example.springinaction.repetit.testTask.TestList;
-import com.example.springinaction.repetit.testTask.Task;
-import com.example.springinaction.repetit.testTask.User;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import com.rayzog.repetit.dao.TaskRepository;
+import com.rayzog.repetit.testTask.TestList;
+import com.rayzog.repetit.testTask.Task;
+import com.rayzog.repetit.testTask.UserAgent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.springinaction.repetit.testTask.Task.Type;
 
 import java.util.*;
 
@@ -29,7 +20,7 @@ public class ShowThemeController {
 
     private ArrayList<Task> taskList;
 
-    private Map<String, User> userMap;
+    private Map<String, UserAgent> userMap;
     private Task task;
     private TestList testList;
 
@@ -44,10 +35,10 @@ public class ShowThemeController {
     public void addQuestionsToModel(Model model, @RequestHeader Map<String, String> headers) {
         System.out.println("___________________________________________________");
         System.out.println("addQuestionsToModelWithTask");
-        String userAgent = headers.get("user-agent");
-        System.out.println(userAgent);
+        String userAgentHeader = headers.get("user-agent");
+        System.out.println(userAgentHeader);
 
-        User currentUser = null;
+        UserAgent currentUserAgent = null;
 
         System.out.println("-----------------------------------------------");
         System.out.println("DB read");
@@ -68,32 +59,32 @@ public class ShowThemeController {
             userMap = new HashMap<>();
         }
 
-        if (!userMap.containsKey(userAgent)){
-            System.out.println("first try for user: " + userAgent);
+        if (!userMap.containsKey(userAgentHeader)){
+            System.out.println("first try for user: " + userAgentHeader);
             Random random = new Random();
             //int rndCnt = random.nextInt(testList.getTaskList().size())+1;
             int rndCnt = 4;
             System.out.println(rndCnt);
-            User newUser = new User();
-            newUser.setUserAgent(userAgent);
-            newUser.setUsersQuestionsList(testList.getQuestionList(rndCnt));
-            newUser.setCurrentTask(newUser.getUsersQuestionsList().get(0).clone());
-            currentUser = newUser;
-            userMap.put(userAgent, newUser);
+            UserAgent newUserAgent = new UserAgent();
+            newUserAgent.setUserAgent(userAgentHeader);
+            newUserAgent.setUsersQuestionsList(testList.getQuestionList(rndCnt));
+            newUserAgent.setCurrentTask(newUserAgent.getUsersQuestionsList().get(0).clone());
+            currentUserAgent = newUserAgent;
+            userMap.put(userAgentHeader, newUserAgent);
 
-            System.out.println(newUser.getUsersQuestionsList().toString());
+            System.out.println(newUserAgent.getUsersQuestionsList().toString());
             for (Task task :
-                    newUser.getUsersQuestionsList()) {
+                    newUserAgent.getUsersQuestionsList()) {
                 System.out.println(task.toString());
             }
 
         }
         else {
-            currentUser = userMap.get(userAgent);
-            System.out.println("not first try for user: " + userAgent);
+            currentUserAgent = userMap.get(userAgentHeader);
+            System.out.println("not first try for user: " + userAgentHeader);
         }
-        this.task = currentUser.getCurrentTask().clone();
-        this.taskList = currentUser.getUsersQuestionsList();
+        this.task = currentUserAgent.getCurrentTask().clone();
+        this.taskList = currentUserAgent.getUsersQuestionsList();
 
         model.addAttribute("question", this.task);
         model.addAttribute("taskList", this.taskList);
@@ -135,6 +126,7 @@ public class ShowThemeController {
         System.out.println(task.toString());
         System.out.println();
         String userAgent = headers.get("user-agent");
+        System.out.println(userAgent);
         for (Task taskForPrint :
                 this.taskList) {
             System.out.println(taskForPrint.toString());
@@ -148,10 +140,10 @@ public class ShowThemeController {
             @ModelAttribute("question") Task task, @RequestHeader Map<String, String> headers){
         System.out.println("CheckAnswer");
         System.out.println("task from front: " + task.toString());
-        String userAgent = headers.get("user-agent");
-        System.out.println(userAgent);
-        User user = this.userMap.get(userAgent);
-        Task userCurrentTask = user.getCurrentTask();
+        String userAgentHeader = headers.get("user-agent");
+        System.out.println(userAgentHeader);
+        UserAgent userAgent = this.userMap.get(userAgentHeader);
+        Task userCurrentTask = userAgent.getCurrentTask();
         for (String ans :
                 task.getStudentAnswers()) {
             System.out.println("user answer: " + ans);
@@ -180,9 +172,9 @@ public class ShowThemeController {
         System.out.println(questionNum);
 
 
-        String userAgent = headers.get("user-agent");
-        User user = userMap.get(userAgent);
-        ArrayList<Task> userQuestionList = user.getUsersQuestionsList();
+        String userAgentHeader = headers.get("user-agent");
+        UserAgent userAgent = userMap.get(userAgentHeader);
+        ArrayList<Task> userQuestionList = userAgent.getUsersQuestionsList();
 
         int taskShowingId = (Integer.parseInt(questionNum));
 
@@ -203,7 +195,7 @@ public class ShowThemeController {
                                 .findAny()
                                 .orElse(null);
 //update showing task in model
-        user.setCurrentTask(showingTask);
+        userAgent.setCurrentTask(showingTask);
         System.out.println("updtTask: " + showingTask.toString());
         this.task.setQuestion(showingTask.getQuestion());
         this.task.setAnswersList(showingTask.getAnswersList());

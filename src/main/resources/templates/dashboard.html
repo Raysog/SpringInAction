@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{/styles/main_profile.css}" >
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' http://localhost:8088/superset/dashboard/13/">
 </head>
 
 <body>
@@ -23,37 +24,10 @@
     </header>
 </div>
 
+<iframe src="http://localhost:8088/superset/dashboard/13/" width="100%" height="600" sandbox="allow-forms allow-scripts allow-same-origin"></iframe>
+
 <div class="container_profile">
-    <div class="inner">
-        <img th:src="@{/images/theme_icon.png}" alt="ThemeList">
-        <form action="https://google.com">
-            <input type="submit" value="Список тем" />
-        </form>
-    </div>
-    <div class="inner">
-        <img th:src="@{/images/theme_icon.png}" alt="ThemeList">
-        <form action="/dashboard">
-            <input type="submit" value="Успеваемость" />
-        </form>
-    </div>
-    <div class="inner">
-        <img th:src="@{/images/theme_icon.png}" alt="ThemeList">
-        <form action="https://google.com">
-            <input type="submit" value="Список тем" />
-        </form>
-    </div>
-    <div class="inner">
-        <img th:src="@{/images/theme_icon.png}" alt="ThemeList">
-        <form action="https://google.com">
-            <input type="submit" value="Список тем" />
-        </form>
-    </div>
-    <div class="inner">
-        <img th:src="@{/images/theme_icon.png}" alt="ThemeList">
-        <form action="https://google.com">
-            <input type="submit" value="Список тем" />
-        </form>
-    </div>
+
 </div>
 
 <footer>

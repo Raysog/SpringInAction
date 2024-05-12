@@ -1,5 +1,6 @@
 package com.example.springinaction;
 
+import com.example.springinaction.Ingredient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
